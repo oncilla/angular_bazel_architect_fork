@@ -6,7 +6,6 @@ describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed
         .configureTestingModule({
-          imports: [FrontendLibModule],
           declarations: [AppComponent],
         })
         .compileComponents();
