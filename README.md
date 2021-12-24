@@ -18,3 +18,9 @@ INFO: Elapsed time: 117.506s, Critical Path: 28.76s
 INFO: 9 processes: 9 internal.
 FAILED: Build did NOT complete successfully
 ```
+
+# Current issues
+* lint not working
+* files not compilable, means something happens, but result files cannot be found
+* serve is not working
+* always (90% of cases) npm tries to refetch node_modules again and again even nothing was changed
