@@ -2,18 +2,18 @@ load("@npm//@angular-devkit/architect-cli:index.bzl", "architect", "architect_te
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
 nodejs_binary(
-    name="browserclient",
-    chdir="browserclient",
-    entry_point="build"
-    )
+    name = "browserclient",
+    chdir = "browserclient",
+    entry_point = "build",
+)
 
 # These dependencies are needed for any ng command
 filegroup(
     name = "common_deps",
     srcs = [
         "angular.json",
+        "tsconfig.app.json",
         "tsconfig.json",
-        "tsconfig.app.json"
     ],
     visibility = ["//:__subpackages__"],
 )
@@ -38,6 +38,7 @@ architect(
         "frontend:build",
         "--outputPath=$(@D)",
     ],
+    chdir = "browserclient",
     configuration_env_vars = ["NG_BUILD_CACHE"],
     data = glob(
         [
@@ -49,7 +50,6 @@ architect(
         ],
     ) + APPLICATION_DEPS,
     output_dir = True,
-    chdir="browserclient",
 )
 
 architect(
@@ -58,6 +58,7 @@ architect(
         "frontend:build:production",
         "--outputPath=$(@D)",
     ],
+    chdir = "browserclient",
     configuration_env_vars = ["NG_BUILD_CACHE"],
     data = glob(
         [
@@ -71,12 +72,12 @@ architect(
         "tsconfig.app.json",
     ],
     output_dir = True,
-    chdir="browserclient",
 )
 
 architect_test(
     name = "test",
     args = ["frontend:test"],
+    chdir = "browserclient",
     configuration_env_vars = ["NG_BUILD_CACHE"],
     data = glob([
         "src/**/*",
@@ -105,7 +106,6 @@ architect_test(
         # 29 01 2020 23:32:46.822:WARN [launcher]: ChromeHeadless was not killed by SIGKILL in 2000 ms, continuing.
         "no-bazelci-mac",
     ],
-    chdir="browserclient",
 )
 
 architect_test(
@@ -144,6 +144,7 @@ architect_test(
 architect(
     name = "lint",
     args = ["frontend:lint"],
+    chdir = "browserclient",
     data = glob([
         "src/**/*",
         "e2e/src/**/*",
@@ -158,7 +159,6 @@ architect(
         "@npm//codelyzer",
         "@npm//tslint",
     ],
-    chdir="browserclient",
 )
 
 architect(
