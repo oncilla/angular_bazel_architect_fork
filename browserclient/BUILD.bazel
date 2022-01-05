@@ -32,6 +32,15 @@ APPLICATION_DEPS = [
     "@npm//typescript",
 ]
 
+genrule(
+    name = "manifest",
+    srcs = [
+        ":build",
+    ],
+    outs = ["build.manifest"],
+    cmd = "ls -alH $(location :build)/.. $(location :build) > $@",
+)
+
 architect(
     name = "build",
     args = [
